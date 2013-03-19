@@ -157,6 +157,11 @@ String target;
 	    for (Node node = arg1.previous; node.previous != null; node = node.previous ){
 	    	prevCount1++;
 	    }
+	   /*this logic seems backwards to me
+	    *  if arg0 is > arg1 I return a negative number
+	    * I would assume that it should return a positive number
+	    * but the program doesn't work well when the logic is reversed
+	    */
 	    if ((prevCount0 + count0) > (prevCount1 + count1))
 	    		return -1;
 	    else if ((prevCount0 + count0) < (prevCount1 + count1))
