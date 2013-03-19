@@ -1,0 +1,41 @@
+Each entry in a list has one next element, or none if it is the last entry.  A binary tree generalizes this by allowing for two next entries,  called left and right. It is possible that either of these are missing, so you might have a left entry and not a right or a right entry and not a left.
+
+A tree has one ``first'' entry called the root which is not the left or right entry of anyone.  A leaf is a ``last'' entry with neither a left nor a right entry.  Since we are using left and right like this, we usually write a tree from root downward, which is like a grocery list, only expanding.  Since it is listed downward, the left and right of an entry are called its children and it is the parent of its left and right.  Each entry is the root of a subtree.
+
+There are two ways to implement a binary tree.  One uses and array and the other uses a linked data structure.  In this case, the linked data structure is the more obvious one:
+
+class Node {
+K key;
+Node left, right;
+}
+
+
+How can we store a binary tree in an array?  Here is the trick:
+the root is at array[0]
+the left child of root is at array[1]
+the right child of root is at array[2]
+the left child of array[i] is at array[2*i+1]
+the right child of array[i] is at array[2*i+2]
+Question:  for i>0, where is the parent of array[i]?
+
+The array is wasteful of space unless it is representing a complete binary tree.  A complete binary tree is one which has every level full except for the last one, which is filled from left to right.  In that case, we just need a variable size to keep track of what part of the array we are using, just like we did for a list.
+
+Question:  in an array implementation of a complete binary tree, how can we tell if array[i] has no left child?
+
+There are two ways to order a binary tree:  search order and heap order.
+
+In search order, every entry in the left subtree is less (comes earlier alphabetically) and every entry in the right subtree is greater.  Just think, ``Left is less.''  In search order, the root is somewhere in the middle of the pack.
+
+In heap order, both the left and right entries are greater (or equal).  In heap order, the root is the first element in the pack.  It's at the ``top of the heap''.
+
+Search order is good for searching (surprise!).   If you are looking for a particular key, compare it to root.key.  If it is the same, you found it.  If it is less, it must be in the left subtree.  If it is greater, it must be in the right subtree.  So search in the appropriate subtree. How do you do that?  (Hint:  it starts with R.)
+
+Heap order is good for keeping track of the minimum key.  That's good for a priority queue. A priority queue does not serve entries in order of arrival.  It serves them in order of key.  This is appropriate in situations where some entries have higher priority than others.  For example, if you show up at an emergency room with a torn ankle ligament, you might have to wait until they take care of heart attack or gun shot victims, even if they arrive after you.  A broken ankle may hurt quite a lot, but it won't kill you.
+
+Of course, the trick is how to add and remove elements from a binary search tree or a heap tree without spoiling the order....
+
+Blackboard doesn't use a fixed width font, so I will put the notes into txt files.
+
+Notes on binary search trees.
+
+Notes on heaps. 
