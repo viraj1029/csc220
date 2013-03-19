@@ -96,7 +96,7 @@ public class WordGame {
   void solve (String start, String target) {
     clearAllPrevious();
     
-    Queue<Node> queue = new Heap<Node>();
+    Queue<Node> queue = new Heap<Node>(new compNode(target));
     
     Node startNode = find(start);
     queue.offer(startNode);
@@ -129,20 +129,18 @@ public class WordGame {
   }
    static class compNode implements Comparator<Node>
   {
-	   String target = "";
-	   compNode (String target)
+String target = "";
+	   public compNode(String target)
 	   {
 		   this.target = target;
 	   }
-
 	@Override
 	public int compare(Node arg0, Node arg1) { 
+		
 		int count0 = 0;
 		int prevCount0 = 0;
 		int prevCount1 = 0;
 		int count1 = 0;
-		if (arg0.word.equals(arg1.word))
-		return 0;
 	    for (int i = 0; i < arg0.word.length(); i++){
 	        if (arg0.word.charAt(i) != target.charAt(i))
 	          count0++;		
@@ -157,12 +155,12 @@ public class WordGame {
 	    for (Node node = arg1.previous; node.previous != null; node = node.previous ){
 	    	prevCount1++;
 	    }
-	    if ((prevCount0 + count0) == (prevCount1 + count1))
-	    		return 0;
+	    if ((prevCount0 + count0) > (prevCount1 + count1))
+	    		return -1;
 	    else if ((prevCount0 + count0) < (prevCount1 + count1))
-	    	return -1;
-	    else
 	    	return 1;
+	    else
+	    	return 0;
 	}
   	  
   }
