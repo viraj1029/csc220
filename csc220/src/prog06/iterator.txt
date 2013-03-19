@@ -1,0 +1,23 @@
+In order to implement MaintainQueue, we need to be able to visit all the elements of the Queue without changing it. We could use a second Queue, like we did for a Stack, but there is a better way that is a standard technique in Java.
+
+We know a Queue is like a List, so maybe we can just use get(index). But this is no good. A get on a linked list implementation of a Queue would take O(n) each time. We need some way to keep track of where we are in the Queue that does not depend on the implementation.
+
+That way is the Iterator. Have a look at the documentation.
+hasNext tells you if there are any more elements
+next gets the next element and moves you one forward
+void print (Queue<String> queue) {
+Iterator iterator = queue.iterator();
+while (iterator.hasNext())
+System.out.println(iterator.next());
+}
+
+This is a little cumbersome still, so Java makes it easy. The following code is equivalent
+
+void print (Queue<String> queue) {
+for (String string : queue)
+System.out.println(string);
+}
+
+It's a new kind of for loop!
+
+To implement iterator(), you need an inner class which implements Iterator. For LinkedQueue, that's easy, you just need to keep track of the next element you haven't looked at yet. For ArrayQueue, you need the index of that element, plus a count of the number of elements you have looked at. Why? Because if the seats are all full, you won't know when to stop!
