@@ -1,0 +1,47 @@
+A Queue is like a Stack only things that go in first come out first. It's like waiting in line. I will run a MaintainQueue program for you to illustrate what a Queue does.
+
+The Queue interface has some strange names
+offer put something in the queue
+poll take something out
+peek who is next to be served?
+size how many in the queue
+Have a look at the Queue interface.
+
+There are other methods, but we do not have to implement them thanks to the AbstractQueue class. AbstractQueue is an abstract class, meaning it is 
+partially implemented. To create an implementation of Queue, you just have to finish it.
+
+A Queue implementation that extends this class must minimally define a method Queue.offer(E) which does not permit insertion of null elements, along with methods Queue.peek(), Queue.poll(), Collection.size(), and a Collection.iterator() supporting Iterator.remove(). Typically, additional methods will be overridden as well. If these requirements cannot be met, consider instead subclassing AbstractCollection.
+
+
+We will learn two ways to implement a Queue:
+ArrayQueue which uses an array
+ListQueue which uses a linked list
+LinkedQueue is like Stack except that it keeps track of the tail too, which is the rear. The head is the front. I will draw the diagram of how we 
+implement a Queue using the linked list. It should be pretty obvious.
+
+ArrayQueue is a little trickier. You have to add at one end of the array and remove at the other. That means you have to add or remove at index 0, 
+which is going to cost O(n) because we have to move everyone over. The million dollar question is: can you do it in O(1)???
+
+Suppose people want to wait ``in line'' but there is a row of five seats to sit in. It makes sense to fill in the seats from left to right, but when 
+the person in seat [0] gets served, does everyone really need to move over? Seems a bit silly.
+0:Victor 1:Irina 2:Yajie 3:Joe 4:null
+Serve Victor and then Irina.  For the sake of clarity, I will set those locations to null, but I don't really have to.  Actually, what I do is set front=2 and rear=3.
+0:null 1:null 2:Yajie 3:Joe 4:null
+Martin arrives (front=2, rear=4).
+0:null 1:null 2:Yajie 3:Joe 4:Martin
+Yajie gets served (front=3, rear=4).
+0:null 1:null 2:null 3:Joe 4:Martin
+Ana arrives. Where should she sit?  (front=3, rear=0!!)
+0:Ana 1:null 2:null 3:Joe 4:Martin
+Philip arrives. Alex arrives.  (front=3, rear=2)
+0:Ana 1:Philip 2:Alex 3:Joe 4:Martin
+Joe is served (whew!).  (front=4,rear=2)
+0:Ana 1:Philip 2:Alex 3:null 4:Martin
+Sam arrives. (front=4, rear=3)
+0:Ana 1:Philip 2:Alex 3:Sam 4:Martin
+Song arrives (Uh oh!). Got to buy more chairs!  (front=0, rear=5)
+0:Martin 1:Ana 2:Philip 3:Alex 4:Sam 5:Song 6:null 7:null 8:null 9:null
+Notice that we take the opportunity to put the front person in chair 0.
+Does this make sense? Can you handle every situation?
+
+You need an index front and rear to keep track of who is in front and in the rear. You also need count to keep track of how many seats are in use.
