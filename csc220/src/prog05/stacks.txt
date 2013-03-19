@@ -1,0 +1,54 @@
+A Stack is a standard Interface which is so standard that Java didn't even bother making it an Interface. 
+
+Like any kind of stack we can think of, the top entry is easy to add, view, or remove.  Trying to add, view, or remove entries in the middle is messy and awkward.
+
+The names for the Stack methods are a little strange:
+push add a new entry to the top of the stack
+pop remove one entry from the top of the stack
+peek look at the top entry of the stack without changing it
+empty true if there is nothing in the stack, false otherwise
+When I put something on top of one of the towering stacks of papers on my desk, I don't think of it as pushing, nor do I think of it as popping when I remove it.  Peek and empty make sense though.
+
+I think what the original inventors had in mind was a 1950s buffet diner spring loaded plate dispenser.  (Use Google Images.)
+
+The power cord  is to run a dish warmer.  It doesn't shoot the dishes up when it pops!  Instead, it always keeps the top dish level with the top of the dispenser, although I don't think that requires electricity.
+
+Stack stack = new Stack();
+stack.empty(); // returns true
+stack.push("apple");
+stack.push("banana");
+stack.push("coconut");
+stack.pop(); // returns "coconut"
+stack.peek(); // returns "banana"
+stack.push("cantaloupe");
+stack.pop(); // returns "cantaloupe"
+stack.pop(); // returns "banana"
+stack.empty(); // returns false
+stack.pop(); // returns "apple"
+stack.peek(); // throws Exception
+
+For the next lab,  you will learn two ways to implement Stack.
+
+In StackInt.java, you will notice something new:
+< E >
+That is a generic declaration.  In means you can have
+StackInt<String>
+StackInt<DirectoryEntry>
+or a stack of any type of class.  When you do this, the Java compiler will make sure you only put that kind of thing into that stack.
+
+It has to be a class, however, so for primitive data types you have to use the class version of those types:
+char -- Character
+int -- Integer
+double -- Double
+This is less efficient (by a constant factor in space and time) than creating a specific Stack_of_char, etc., but it is usually good enough.
+
+ArrayStack.java is an array based implementation of StackInt.  Entries are pushed at the end (max index) of the array, so push is O(1), unless the array is full and needs to be reallocated.  This is the fastest way to implement a stack, but it might not be good for real time programming.  (Sorry the laser stopped in the middle of your eye, but we have to allocate a bigger array!)
+
+LinkedStack.java is a linked list implementation which is O(1) per operation no matter what.  You will notice some new techniques.
+The entire Node class is private and declared inside LinkedStack.  That means you don't need a separate Java file and you don't need to use accessor methods. So for example, data.next gets you the next entry instead of data.getNext().
+The Node is singly linked instead of doubly linked.  There is no previous.  This saves space and time and works fine for this specialized application.
+Pushing and popping are done at the beginning of the list.
+Finally, ListStack.java is an implementation using java.util.List and its implementation java.util.ArrayList.  List is an interface to a list.  So for example, ``add'' means add an item to the end of the list, which is what we will use for push.  We will look at what methods you need to implement pop, peek, and empty.  ArrayList is an array based implementation.  Basically, it does exactly what we have been doing with array based implementations.  It is a partially filled array with a size and capacity.  When we want to add to an array with size==capacity, it allocates a bigger array.  We don't see any of this since the actual array and the variables size and capacity are private.  (But now we know they are there.)
+
+There is also an implementation java.util.LinkedList, which is a doubly linked list.  You can easily switch to this implementation, thanks to the List interface.
+
