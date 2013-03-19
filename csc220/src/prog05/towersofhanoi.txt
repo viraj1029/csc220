@@ -1,0 +1,113 @@
+The Tower of Hanoi puzzle is all about stacks.
+
+We can use three StackInt<Integer> to store the current situation:
+
+a: 4 3 2 1
+b: 
+c:
+
+Here, the top of the stack is on the right.  Turn your head sideways!  I'll do it upward on the board.
+
+A move is a push and a pop.  In fact, you can do it all at once like this
+
+b.push(a.pop());
+
+with the result
+
+a: 4 3 2
+b: 1
+c:
+
+Question:  how can we print out the contents of one of the stacks as it appears here, such as
+
+4 3 2
+
+for stack a?  We can only peek at the top element 2.  We can't see the 4 and the 3.  Hint:  use a helper stack.
+
+while stack a is not empty
+pop from a and push the result on helper
+while stack helper is not empty
+pop from helper, print it, push on a
+
+So we can program a simple Tower of Hanoi game for people to play.  But can we program a Tower of Hanoi solver?
+
+A stack is useful for TOP DOWN design or planning.  In this case, you need a stack of goals.
+
+Push a big goal on the stack.
+While the stack is not empty:
+Pop a goal.
+If it is easy,
+do it;
+else,
+break it into subgoals
+and push the subgoals onto the stack.
+
+Let's apply top down planning to the Tower of Hanoi.  The big goal is 4ac, meaning move a pile of four disks from peg a to peg c.
+
+How can 4ac be broken into subgoals.  How about 3ab, 1ac, 3bc.  Does that make sense?
+
+3ab:  move the top three disks (3, 2, 1) from peg a to peg b.
+1ac:  move the top one disk (4) from peg a to peg c.
+3bc:  move the top three disks (3, 2, 1) from peg b to peg c.
+
+Any goal with one disk, such as 1ab, is easy, and we can do it right away.   All others can be broken into subgoals in this manner.
+
+So let's solve the 4-disk Tower of Hanoi.
+
+4ac
+
+Pop the 4ac.  It's hard, so break it down into 3ab, 1ac, 3bc.  Push these on the stack but in reverse order because we want to to 3ab first!
+
+3bc 1ac 3ab  <-- top of stack
+
+When I do this on the board, the 3ab will be on top.  Again, turn your head sideways to read the notes.
+
+Pop the 3ab.  It's hard, so break it down into 2ac, 1ab, 2cb.  Push these:
+
+3bc 1ac 2cb 1ab 2ac <-- top of stack
+
+Pop the 2ac.  It's hard, so break it down into 1ab, 1ac, 1bc.  Push these:
+
+3bc 1ac 2cb 1ab 1bc 1ac 1ab
+
+Now I can do four pops in a row that give me easy goals that I can do!
+
+a: 4 3 2 1
+b:
+c:
+
+goes to
+
+a: 4
+b: 3
+c: 2 1
+
+and the goal stack is
+
+3bc 1ac 2cb
+
+Pop 2cb.  It's hard, so break it into 1ca, 1cb, 1ab:
+
+3bc 1ac 1ab 1cb 1ca
+
+Four pops of easy goals later:
+
+a:
+b: 3 2 1
+c: 4
+
+3bc
+
+Continue on your own!
+
+So how can you implement this idea?  What does the goal stack contain?
+
+I hope the answer is obvious.  You need a Goal class:
+
+class Goal {
+int howMany;
+int fromPeg;  // 0 for a, 1 for b, 2 for c
+int toPeg;       // ditto
+}
+
+And the stack is StackInt<Goal>.
