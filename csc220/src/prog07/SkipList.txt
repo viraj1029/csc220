@@ -1,0 +1,39 @@
+A Map is what Java calls a PhoneDirectory.  Let's have a look at the Map interface.
+V put(K key, V value) is like addOrChangeEntry.
+V get(K key) is like lookupEntry.
+V remove(Object Key) is like removeEntry.
+We have already implemented a PhoneDirectory using a doubly linked list.  This time, we will start with a Map using a singly linked list.  However, we will use a trick to make things easier.  There will be a node BEFORE the head of the list called the ``dummy''.  It will have a null key and value.
+ 
+I will show you the implementation of find as part of prog07.  It looks a little more complicated because we always stay one node BEFORE the one we really want.  This does make find a tiny bit harder, but it makes add and remove much easier.  Since the list is singly linked, we cannot remove node if we are pointing at it.  We need to be pointing to the node just before it.  If we are pointing at the node after the one we insert, we cannot add the new node.  We need to be pointing to the previous node.
+ 
+The point of the dummy is that even the head has a previous node, so no special case is required for the head.
+ 
+We need a nice application for our Map, and that is yet another game!  The Jumble appears every day in the paper and online.  In order to solve it, we need to be able to unscramble words.  So if we see rtpocmue, we need to figure out that it is computer.  How can a Map help us to do that?
+ 
+Well, we have a dictionary.  So we could read it in and try every possible ordering of rtpocmue until we find one that matches.  We can look up each possibility in O(log n) time, but the number of orderings is 8! = 40,320.  Is there a better way using a Map?
+ 
+The value will be "computer".  What will be the key?  How about the letters in alphabetical order?  That is "cemoprtu". So we will read each word from the dictionary and put it into the Map.  The key will be the letters of the word in alphabetical order. The value will be the word.
+ 
+Now when we see a Jumble puzzle in the newspaper with the scrambled word "rtpocmue", we put it into alphabetical order, "cemoprtu", and look it up in the Map, getting "computer" as the value.  If we can do the lookup in O(log n) time, this will be fast.
+ 
+I will run the Jumble solver for you using DummyList.  The lookup is actually O(n), as you know, but that's not the problem.  The problem is adding all the words in the dictionary.  We never got add faster than O(n), and if we add n words, that's O(n2), which is pretty slow.  It's even slower for a bigger dictionary, as I will show you.
+ 
+The problem, as you know, is that to get to entry i in the list takes i steps.  An array can do it in one step (theArray[i]), but then adding at the head will cost O(n), so that is no good.  The list lets us add quickly once we get there, but it takes a while to get there.
+ 
+Suppose we have a second list with a pointer to every other node in the first list.  The keys will be the same, only just some of them, and the values won't be words or phone numbers but instead nodes in the first list.  If we use the second list, we can get to position i in the first list twice as fast!  Just go forward about i/2 steps, then go down, and you will be there or have to go forward one.
+ 
+So what?  i/2+1 is still O(i), right?  Fine.  Let's have a third list pointing to every other node in the second list.  And a fourth list.  And so on until we get a list with one element.
+ 
+How long does it take to get the item i now?  First, how many lists are there?  You should be able to answer this one in your sleep by now.  Each list has half as many elements as the one below, so there are....O(log n) lists, specifically log2n.
+ 
+How far forward do you have to go in each list?  Do you ever have to go forward more than once in a list?  Suppose you did.  But since every other element is in the next higher list, you must be going forward to an item that was in the next higher list.  So why didn't you do it then??
+ 
+Since you only go forward at most once per list and there are log2n lists, you only have to go forward at most log2n times.  You have to go down log2n times.  So the number of moves is at most 2 log2n which is O(log n).  We did it!
+ 
+A good way to handle going forward and going down is to use a loop for going forward and use recursion for going down.  So to find a node, we go forward while the next node comes before the one we are looking for.  Then we go down and find the node in the next lower list recursively.   Of course, if we are on the bottom, then we don't recurse.  Instead we check if the next node is the one we are looking for.
+ 
+Remove is similar.  Go forward as much a possible.  If the next node has the key to be removed, remove it.   If we are not at bottom, recursively remove from the next lower list starting from just below where we are.
+ 
+Add is a bit more complicated.  If we are on the bottom, it is the same as DummyList add, and we return the node that is added.  If we are not on the bottom, we move forward as much as possible and add the key and value to the next lower list recursively.  If it returns a node, flip a coin to decide whether to add it to this level too.  Why flip a coin?  That's a good way to get every other node which won't be messed up if we remove nodes later.  If we flip heads, add it to this level and return it.  Otherwise, return null.
+Put needs to use find to change the value if it can.  If it has to add it, it calls add.  If it gets back a node, meaning the node was added to the top level list, we have to consider if the node should go ``higher''.  While you flip heads, create a higher level list with that key.
+ 
