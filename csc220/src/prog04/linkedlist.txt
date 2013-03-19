@@ -1,0 +1,43 @@
+The find method for SortedPD is O(log n).  Even though add uses find, add is still be O(n) because when we stick a new entry at index i, we have to move all the entries from i+1 to size-1.  So we have no hope of getting it fast enough to handle something really big.
+
+What we need is a way of storing a list that allows us to add or remove and entry faster, in O(1) time if possible.  One way of  doing this is the doubly linked list.
+
+Have a look at the DLLNode class.  I made a few changes for modern terminology.
+Node instead of Entry
+Key instead of Name
+Value instead of Number
+But otherwise, that part is the same as DirectoryEntry.  What is different is that it has a next and previous field with get and set methods.  These are references to the next and previous entries in the list.
+
+So I don't need an array anymore.  All I need is a reference to any element of the list and I can get all the others by repeatedly calling getNext() or getPrevious().  For convenience, it is customary to store references to
+head, the first entry in the list
+tail, the last entry in the list
+Again, that's the modern terminology.  My slides shows how to use this structure to implement a phone directory.
+
+To find Hal, we need to look at each entry.  So we set the variable entry to the first one.  How do we do that?
+ 
+ 
+We compare the name at entry to the name we are looking for.   How do we get the name at entry?  (Jay)
+ 
+That's not the one we want, so we need to move entry forward one.  The only way to change the value of entry is an assignment
+entry =
+What do we set entry equal to?
+ 
+The loop should return when it finds Hal, but what if Hal is not there?  What will stop the loop?  What value of entry tells us that we have seen everything in the list?
+ 
+removeEntry calls find("Hal") to find its entry in the list.  Then it sets variables next and previous.  How does it set them?
+ 
+Next it must tell Zoe's entry to use Ann's entry as its next entry.  What method sets Zoe's next entry pointer?  How do we invoke it?  What value do we give it?
+ 
+Similarly Ann's must point back to Zoe's.
+ 
+At this point Hal thinks he is still in the list, but he really isn't.  Everyone is ignoring him!
+ 
+How do we add him back again.  Let's just put him at the end.  Three values have to change for this to happen.  Which values?  How do we set them?  To what?
+ 
+SortedPD find must tell us where to put Hal if he is not there.  In that case it returns the entry after Hal.  How does it know it has reached this entry?
+ 
+SortedPD add uses the output of find.  It sets the variable next to the entry that should be next after Hal.  How does it set next?  (Easy!!)
+ 
+How does it set previous?  (A little harder.)
+To insert new entry Hal between next and previous, it has to set four pointers.  What are they?  What method do we use?  For each of the four times, how do we call it and what is the value?
+ 
