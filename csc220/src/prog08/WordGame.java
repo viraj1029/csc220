@@ -108,7 +108,7 @@ public class WordGame {
         Node next = nodes.get(i);
         if (next != startNode &&
             next.previous == null &&
-            oneDegree(node.word, next.word)) {
+                          oneDegree(node.word, next.word)) {
           next.previous = node;
           queue.offer(next);
           System.out.print(" " + next.word);
