@@ -111,7 +111,7 @@ public class Heap<E> extends AbstractQueue<E> {
 	 */
 	public E poll() {
 		// IMPLEMENT
-
+//System.out.println(theData.size());
 		// Return null if queue is empty.
 		if (theData.size() == 0)
 			return null;
@@ -127,14 +127,14 @@ public class Heap<E> extends AbstractQueue<E> {
 		 * Remove the last item from the ArrayList and place it into the first
 		 * position.
 		 */
-		E temp = theData.remove(theData.size() - 1);
+		E temp = theData.remove(theData.size() -1);
 		theData.set(0, temp);
 		int parent = 0;
 		int leftChild = (2 * parent + 1);
 		int rightChild = (2 * parent + 2);
 		while ((leftChild < theData.size() - 1  && compare(parent, leftChild) > 0)
-				|| (rightChild < theData.size()  && compare(parent,	rightChild) > 0)) {
-			if (/*theData.get(rightChild) != null*/ rightChild < theData.size() && compare(rightChild, leftChild) > 0){
+				|| (rightChild < theData.size() -1  && compare(parent,	rightChild) > 0)) {
+			if (theData.get(rightChild) != null /*rightChild < theData.size()-1*/ && compare(rightChild, leftChild) < 0){
 				swap(parent, rightChild);
 				parent = rightChild;
 				leftChild = (2 * parent + 1);
