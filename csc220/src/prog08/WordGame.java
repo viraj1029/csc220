@@ -1,8 +1,9 @@
-package prog06;
+package prog08;
 
 import prog02.GUI;
 import java.util.Scanner;
 import java.io.File;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -95,7 +96,7 @@ public class WordGame {
   void solve (String start, String target) {
     clearAllPrevious();
     
-    Queue<Node> queue = new LinkedList<Node>();
+    Queue<Node> queue = new Heap<Node>();
     
     Node startNode = find(start);
     queue.offer(startNode);
@@ -126,4 +127,44 @@ public class WordGame {
       System.out.println();
     }
   }
+   static class compNode implements Comparator<Node>
+  {
+	   String target = "";
+	   compNode (String target)
+	   {
+		   this.target = target;
+	   }
+
+	@Override
+	public int compare(Node arg0, Node arg1) { 
+		int count0 = 0;
+		int prevCount0 = 0;
+		int prevCount1 = 0;
+		int count1 = 0;
+		if (arg0.word.equals(arg1.word))
+		return 0;
+	    for (int i = 0; i < arg0.word.length(); i++){
+	        if (arg0.word.charAt(i) != target.charAt(i))
+	          count0++;		
+	    }
+	    for (int i = 0; i < arg1.word.length(); i++){
+	        if (arg1.word.charAt(i) != target.charAt(i))
+	          count1++;		
+	    }
+	    for (Node node = arg0.previous; node.previous != null; node = node.previous ){
+	    	prevCount0++;
+	    }
+	    for (Node node = arg1.previous; node.previous != null; node = node.previous ){
+	    	prevCount1++;
+	    }
+	    if ((prevCount0 + count0) == (prevCount1 + count1))
+	    		return 0;
+	    else if ((prevCount0 + count0) < (prevCount1 + count1))
+	    	return -1;
+	    else
+	    	return 1;
+	}
+  	  
+  }
+
 }
