@@ -134,7 +134,7 @@ public class Heap<E> extends AbstractQueue<E> {
 		int rightChild = (2 * parent + 2);
 		while ((leftChild < theData.size() - 1  && compare(parent, leftChild) > 0)
 				|| (rightChild < theData.size()  && compare(parent,	rightChild) > 0)) {
-			if (/*theData.get(rightChild) != null*/ rightChild < theData.size() && compare(rightChild, leftChild) < 0){
+			if (/*theData.get(rightChild) != null*/ rightChild < theData.size() && compare(rightChild, leftChild) > 0){
 				swap(parent, rightChild);
 				parent = rightChild;
 				leftChild = (2 * parent + 1);
