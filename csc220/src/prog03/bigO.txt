@@ -1,0 +1,43 @@
+Please read the book (Chapter 5) for a formal definition of O(). (The book is on the home page for the course.)  It means “functions which are bounded by some constant times what’s in the () for large enough n.”  So O(n) includes functions like n+1, 17n, and n+log(n). The last one might seem confusing, but for n > 1, log(n) < n and so n+log(n) < 2n and 2n is a constant times n.
+
+Consider ArrayBasedPD.add, the unsorted add method. All it does is add a new DirectoryEntry to the array and increment size. This takes the same amount of time no matter what size is. UNLESS the array is full and has to be reallocated twice as big. Ignoring that for now, the time it takes to add is a constant that depends on the computer, the operating system, and the version of Java, but not the size. So we say the running time is in O(1) because it is bounded by a constant times 1.  We say it takes constant time.
+
+What about ArrayBasedPD.find? It looks at each entry in order until it finds the correct entry or it has checked them all. It takes a constant amount of time to check each entry. So what is its running time?  Obviously, more entries means more time, but does the capacity or theDirectory.length matter?  No, because it only has to check entries 0 to size-1, which is size in all. So the running time is O(n) for n=size.  We say it takes linear time.
+
+So does ArraybasedPD.removeEntry run in O(1) time? After all, it just has to copy the last item on top of the one being removed and then decrement size. Yes, but it has to call find first, and find takes O(n). So the running time is O(n) plus a constant. But
+c1*n+c2 < (c1+c2)*n,
+so it is still O(n). Yes, that is a bit confusing. Please do the exercises in the book if you are confused, and if that doesn't help, ask. You need to understand this.
+
+SortedPD.find uses binary search. As we have learned, it only has to loop log2(n) times for n=size. So its running time is in O(log(n)). Notice I don't specify the base of the log because all logs differ by a constant factor.  We say it takes log or logarithmic time.
+
+SortedPD.removeEntry calls find which takes O(log n) time. To remove "Aaron", it has to move size-1 items back one, which takes O(n) time.  These are separate actions done one after the other, so the total time is O(log n) + O(n).   But this adds up to O(n) for the same reason that O(n) + O(1) does.
+ 
+SortedPD.add is very similar to removeEntry, so its running time is also O(log n) + O(n) = O(n).  However, if we could guarantee that each entry is added to the end, then the time is O(log n) + O(1) = O(log n).  When can we guarantee this?  If we have saved the file at least once from SortedPD, then it is in order, and so when we read it in, each call to add adds the next entry at the end.  So loadData calls add n times and each call takes O(log n).  What is the total time?  This time it is n things that take O(log n) each in sequence for a total of n times O(log n) which equals O(n log n).
+
+So what use is O(1) or O(log(n)), O(n), or O(n log n) if we don't know that constant, especially if it is a different constant in each case? The answer is that we can measure the running time for one value of n and use that to extrapolate the running time for another value of n. Here is how to do it.
+
+Suppose ArrayBasedPD.find takes 10 microseconds for n=100. Since the running time t is in O(n), we have
+t = c n
+10 = c 100
+c = 1/10
+How long will it take for n=1000?
+t = c n
+t = 1/10 * 1000
+t = 100
+So the answer is 100 microseconds.
+
+Now suppose SortedPD.find takes 50 microseconds for n=100. More complicated methods often take longer for small n. This is the same reason that you don’t drive your car to go next door. By the time you have opened the garage door, got in, started it up, etc., you will spend more time than just walking there. Since the running time is O(log(n)), we have
+t = c log10(n)
+50 = c log10(100)
+50 = c 2
+c = 25
+Even though the original analysis of binary search was for log2(n), I can use any base I want to because all logs differ by a constant. Try doing this all using natural log on your calculator, and you will see you get the same answer!
+
+For n = 1000,
+t = c log10(n)
+t = 25 log10(1000)
+t = 25 * 3
+t = 75
+So 75 microseconds. Notice that I used the same log base 10. You can’t switch log bases in the middle, or you will get a different (and wrong) answer.
+
+For the next program, we will use this technique to predict the running time of various implementations of the Fibonacci number.
