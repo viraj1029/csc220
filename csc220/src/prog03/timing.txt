@@ -1,0 +1,57 @@
+Let's discuss this joke.  In general the estimate is terrible and then gets better and better.  Why?
+ 
+Suppose I am doing a repetitive task, like testing each of your prog02 programs.  I look at the clock and it says 9:13.  I run all my tests on one program and then I look at the clock again.  It says 9:16.  So it took me 3 minutes, right?
+ 
+Maybe, but how accurate is that?  If the clock had just changed both times I looked, then yes, it's 3 minutes.  But what if the clock was about to change to 9:14 the first time?  That would mean it took me only a little more than 2 minutes.  Or if the clock was about the change to 9:17 the second time, that would mean it took me almost 4 minutes.
+ 
+So it is 3 minutes plus or minus 1 minute.  That's not very accurate.  If I am trying to estimate how long it will take me to test all 50 programs in total, it is 150 minutes, or an hour and a half, plus or minus 50 minutes, which is almost and hour of uncertainty in each direction.  That would make it hard for me to schedule my next appointment.
+ 
+How can we make it more accurate?  Well suppose I do ten programs instead of just one.  It takes me from 9:13 to 9:41.  The total time is 28 minutes, again plus or minus a minute.  So big deal!  Yes, but the average time is the total time divided by ten, the number of programs.  So the average time is 2.8 minutes plus or minus 0.1 minute.  So testing all 50 programs will take me 140 minutes plus or minus 5 minutes.  Thats a much more accurate estimate, and probably good enough for me to schedule my next appointment.
+In order to time a program, you can use
+
+System.currentTimeMillis()
+ 
+Instead of minutes, this returns the number of milliseconds since Jan 1, 1970.
+What is a millisecond?
+How many milliseconds have there been since then?
+Why can't it return an int?
+What integer data type is bigger than an int?
+So how can we time a method ``myMethod''?
+
+long start = System.currentTimeMillis();
+myMethod();
+long end = System.currentTimeMillis();
+double time = end - start;
+System.out.println("myMethod took " + time + " milliseconds");
+ 
+Suppose myMethod() actually takes 789.34 milliseconds.
+What is the smallest number that can get printed out?
+What is the largest?
+So we get three figures of accuracy, which is probably plenty good enough.  Remember the O() calculation is very approximate.
+
+Suppose myMethod() takes 789.34 microseconds?
+What is a microsecond?
+What is the smallest number that can get printed out?
+What is the largest?
+How can we get three figures of accuracy?
+Try this:
+
+int ntimes = 1000;
+long start = System.currentTimeMillis();
+
+for (int i = 0; i < ntimes; i++)
+myMethod();
+
+long end = System.currentTimeMillis();
+double time = (double)(end - start)/ntimes;
+System.out.println("myMethod took " + time + " milliseconds");
+
+Now think:
+What is the smallest number that can get printed out?
+What is the largest?
+How many figures of accuracy to we get now?
+Finally:
+What is the value of end-start or total time we need in order to get three figures of accuracy?
+How can we figure out the value of ntimes so we get at least this value?
+We could just try ntimes=1, 10, 100, 1000, etc. until we get it.  There is no harm except wasting time to go past the right value.
+Can we be a little smarter?
