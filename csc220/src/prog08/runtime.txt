@@ -1,0 +1,48 @@
+Binary Search Trees
+
+Suppose we are using a binary tree to implement a Map and the entries are inserted in random order.  How many comparisons does it take to find an entry?
+Find key in tree with n entries:
+Compare key with root.key.
+Find key in left or right tree with up to n/2 entries (on average):
+Compare key with root.key.
+Find key in left or right tree with up to n/4 entries (on average):
+Compare key with root.key.
+Find key in left or right tree with up to n/8 entries (on average):
+Compare key with root.key.
+Find key in left or right tree with up to n/16 entries (on average):
+This is our gold coin example again.  We know there will be about log2n comparisons.  So the running time is O(log n).
+
+ON AVERAGE.  IF INPUTS ARE RANDOMLY ORDERED.
+
+The situation is bad if inputs are already ordered by key.  In that case, everything is always on the right:
+Find key in tree with n entries:
+Compare key with root.key.
+Find key in right tree with up to n-1 entries:
+Compare key with root.key.
+Find key in right tree with up to n-2 entries:
+Compare key with root.key.
+Find key in right tree with up to n-3 entries:
+Compare key with root.key.
+Find key in right tree with up to n-4 entries:
+This is going to require n comparisons for a running time of O(n).
+
+Can this happen?  Yes, someone might order the inputs by key in an effort to be helpful.  If your English professor asks for an example for irony, you can offer this one!
+
+There is a way to fix this using coin flips, but we will learn a way that doesn't require randomness at all and is useful for other reasons:  the b-tree.  Not this week, though.
+
+
+Heaps
+
+The situation with heaps is much better.  No randomness is required.  Let's figure out how many levels there are in the tree for a given number of entries:
+1 entry means 1 level
+2-3 entries means 2 levels
+4-7 entries means 3 levels
+8-15 entries means 4 levels
+16-31 entries means 5 levels
+What's the general rule?  n entries means up to log2n+1 levels.
+
+How many swaps do you need to do when you add a new entry (offer)?  You might have to swap with the parent all the way to the top.  But that is levels-1 swaps at most, so at most log2n swaps.  The running time is O(log n).
+
+Similarly, when removing an element (poll), it might have to swap with a child log2n times for a total running time of O(log n).
+
+peek() is obviously O(1).
