@@ -1,6 +1,8 @@
 package prog08;
 
 import prog02.GUI;
+import prog06.LinkedQueue;
+
 import java.util.Scanner;
 import java.io.File;
 import java.util.Comparator;
@@ -97,7 +99,7 @@ public class WordGame {
     clearAllPrevious();
     
     Queue<Node> queue = new Heap<Node>(new compNode(target));
-    
+    //Queue<Node> queue = new LinkedQueue<Node>();
     Node startNode = find(start);
     queue.offer(startNode);
     while (!queue.isEmpty()) {
@@ -129,7 +131,7 @@ public class WordGame {
   }
    static class compNode implements Comparator<Node>
   {
-String target = "";
+String target;
 	   public compNode(String target)
 	   {
 		   this.target = target;
