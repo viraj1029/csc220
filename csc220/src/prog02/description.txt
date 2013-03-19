@@ -1,0 +1,45 @@
+Google finds the 10 most significant web pages with Victor Milenkovic in 0.38 second.  It used to be faster, but that doesn't matter because it does it before I finish typing my name!
+
+Go to Google Books, type in "2061 poem", and click the first link.  You should arrive at the page on which Heywood Floyd tries to remember the name of a poem that a line comes from.  But it might take as much as ten minutes for the computer to find it, and that would be expensive!!
+
+Now try typing the line into Google:  "i too take leave of all I ever had".  Send me your computer bill!
+
+My laptop runs a 2 core 2.66 GHz (giga Hertz) processor and has 8 GB (giga bytes) of RAM (random access memory).
+
+Oddly enough, the first G mean 109 or 1,000,000,000 or a billion. The second G means 230 or 1,073,741,824. By coincidence, 103 = 1000 is close to 210 = 1024, and so the computer world sometimes uses factors of 1024 instead of 1000. See the Wikipedia entry on gigabyte.  Things are a lot easier for cartoon characters....
+
+A Hertz is a cycle per second. It means the number of times the computer's clock ``ticks'' per second. Some computers take several clock ``ticks'' to do an instruction, like looking at a byte in memory. Let's just assume my computer uses one tick.
+
+A byte is 8 bits. Why? Because 6 bits only allows us to encode 26 = 64 characters. If you take upper and lower case letters, that makes 26+26=52. Then you need 10 more for the numbers 0 to 9. Then you have punctuation. So 64 is not enough, and you need to use 7 bits to encode 128 different characters. Why the extra bit? The eight bit used to encode the parity of the 7 bits. So if the seven bits are 1101011 then the eight bit is 1 because 1+1+0+1+0+1+1 is odd. If a SINGLE bit gets flipped, you will know because the total will be odd instead of even. That's called a parity error. Nowadays we use other ways to safeguard transmissions and so we use the 8th bit for information too. It usually corresponds to pressing the ALT or META key on your keyboard.
+
+So what is the fastest possible my laptop could find all V's in its RAM? Rounding the speed and the number of bits to a billion, it can only look at a 4 billion bytes per second (2 cores looking at 2 billion bytes per second) and it has to look at a 8 billion bytes. So it can't do it faster than 2 seconds.
+
+Google is six times as fast even though
+they are looking at web pages not individual bytes
+they can't access a web page in a billionth of a second
+they are looking for Victor Milenkovic which is more then ten times as long as V
+there is a lot more than a billion web pages out there
+they rank the results in order of significance
+By the time we get to the end of the course, we will have some idea how Google does this.
+
+This course is about doing things fast. Here is an example of doing things fast.
+
+Suppose you have 1000 coins, all but one are gold, but one is gold-plated lead. Each gold coin weighs 10 grams. A fake coin weighs 6 grams. You have an accurate scale.
+
+You could weigh each coin. That would take 1000 weighings.
+
+Or you could weigh half the coins all at once. If you see a 6 in the grams place, such as 4996 grams, this half has the fake coin. If you see a 0, such as 5000, the other half has the fake.
+
+Start with 1000. First weigh 500 (5000 or 4996 grams), then 250, then 125, then 63 (or 62), then 32 (or less), then 16 (or less), then 8 (or less), then 4 (or less), then 2 (or less), then 1 (or not). That's 10 weighings (at most) instead of 1000!
+
+How fast is it with n coins? Well, it was 10 for n=1000 because 29 < 1000 ≤ 210. We need to solve n = 2k and round up to the nearest integer. The solution is k = log2(n) (logarithm to the base 2 of n).
+How long would a million coins take?  Answer:  20.
+How long would a billion coins take?  Answer: 30.
+
+So if it were a billion coins, you could find the fake in 30 weighings instead of 1,000,000,000. Log(n) is a lot smaller than n.
+
+Some things are even faster. When you look up a word in the dictionary, you could use the same strategy of checking the middle page, checking the middle of the half which contains the word, and so on. Actually you do something faster. If you are looking for a word which begins with s, you try about 19/26ths the way through the dictionary because s is the 19th letter. And so on.
+LINEAR SEARCH: weigh each coin or read the dictionary from front to back. Takes n steps.
+BINARY SEARCH: split in half each time. Takes log2(n) steps.
+INTERPOLATION SEARCH: estimate the position of a word from its letters. Takes log(log(n)) steps.
+Log(log(n)) is really small. It gets you from n=1,000,000,000 to log(n)=30 to log(log(n))=5. Is there anything faster? Yes! We will learn a technique called hashing that allows us to find something in ONE STEP!
