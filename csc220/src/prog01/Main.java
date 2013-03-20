@@ -33,7 +33,9 @@ public class Main {
     System.out.println(c2);
 
     System.out.println(n1.getWeight());
-
+String s = "aardvark";
+String st = "zebra";
+    System.out.println(s.compareTo(st));
     // Even though n1 and c2 refer to the same thing, this is a
     // compiler error because the compiler doesn't ``know'' this.
    // System.out.println(c2.getWeight());

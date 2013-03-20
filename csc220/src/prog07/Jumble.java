@@ -6,6 +6,8 @@ import java.util.Scanner;
 import prog02.UserInterface;
 import prog02.ConsoleUI;
 import prog02.GUI;
+import prog08.Tree;
+
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Arrays;
@@ -29,7 +31,7 @@ public class Jumble {
 
   public static void main (String[] args) {
     UserInterface ui = new GUI();
-    Map<String,String> map = new SkipList<String,String>();
+    Map<String,String> map = new Tree<String,String>();
 
     Scanner in = null;
     do {
@@ -51,7 +53,7 @@ public class Jumble {
       // What is the key?  What is the value?
 
     }
-    ((SkipList<String, String>) map).draw();
+    //((SkipList<String, String>) map).draw();
 
     while (true) {
       String jumble = ui.getInfo("Enter jumble.");

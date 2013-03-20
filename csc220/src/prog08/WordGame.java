@@ -162,12 +162,7 @@ String target;
 	    * I would assume that it should return a positive number
 	    * but the program doesn't work well when the logic is reversed
 	    */
-	    if ((prevCount0 + count0) > (prevCount1 + count1))
-	    		return -1;
-	    else if ((prevCount0 + count0) < (prevCount1 + count1))
-	    	return 1;
-	    else
-	    	return 0;
+	    return (prevCount1+count1) - (prevCount0 + count0);
 	}
   	  
   }

@@ -108,18 +108,17 @@ public class WordGame {
 		 */
 		while (!nodeQueue.isEmpty()) {
 			Node currentNode = nodeQueue.poll();
-			//for (Node theNode : nodes) {
-			for (int i = 0; i <nodes.size(); i++){
-				Node theNode = nodes.get(i);
+			for (Node theNode : nodes) {
 				if (!theNode.word.equals(startNode.word)
 						&& theNode.previous == null
 						&& oneDegree(theNode.word, currentNode.word)) {
-					theNode.previous = currentNode;
-					nodeQueue.offer(theNode);
-					if (theNode.word.equals(targetWord)) {
+
+					nextNode = new Node(theNode.word, currentNode);
+					nodeQueue.offer(nextNode);
+					if (nextNode.word.equals(targetWord)) {
 						ui.sendMessage("You win!");
 						String s = "";
-						Node printNode = theNode;
+						Node printNode = nextNode;
 						while (printNode != null) {
 							s = (printNode.word + " " + s);
 							printNode = printNode.previous;
