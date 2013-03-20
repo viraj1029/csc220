@@ -1,0 +1,142 @@
+DEQUEUE: rain
+ENQUEUE: fain gain lain main pain raid rail rein ruin vain
+DEQUEUE: fain
+ENQUEUE: fail fair faun fawn
+DEQUEUE: vain
+ENQUEUE: vein
+DEQUEUE: lain
+ENQUEUE: laid lair lawn loin
+DEQUEUE: rail
+ENQUEUE: bail hail jail mail nail pail sail tail wail
+DEQUEUE: raid
+ENQUEUE: maid paid said
+DEQUEUE: gain
+ENQUEUE: gait grin
+DEQUEUE: said
+ENQUEUE: sand skid slid
+DEQUEUE: pain
+ENQUEUE: pair pawn
+DEQUEUE: sail
+ENQUEUE: soil
+DEQUEUE: main
+ENQUEUE: maim
+DEQUEUE: ruin
+ENQUEUE:
+DEQUEUE: rein
+ENQUEUE:
+DEQUEUE: pair
+ENQUEUE: hair
+DEQUEUE: skid
+ENQUEUE: skim skin skip skis skit
+DEQUEUE: laid
+ENQUEUE: land lard
+DEQUEUE: fawn
+ENQUEUE: dawn yawn
+DEQUEUE: lawn
+ENQUEUE: laws
+DEQUEUE: lair
+ENQUEUE:
+DEQUEUE: loin
+ENQUEUE: coin join loan loon
+DEQUEUE: vein
+ENQUEUE: veil
+DEQUEUE: loon
+ENQUEUE: boon coon lion look loom loop loot noon soon
+DEQUEUE: sand
+ENQUEUE: band hand sane sang sank send wand
+DEQUEUE: soon
+ENQUEUE: soot sown
+DEQUEUE: gait
+ENQUEUE: bait grit wait
+DEQUEUE: faun
+ENQUEUE:
+DEQUEUE: paid
+ENQUEUE:
+DEQUEUE: maid
+ENQUEUE:
+DEQUEUE: maim
+ENQUEUE:
+DEQUEUE: grin
+ENQUEUE: grid grim grip
+DEQUEUE: wail
+ENQUEUE: wall
+DEQUEUE: tail
+ENQUEUE: tall toil
+DEQUEUE: fair
+ENQUEUE:
+DEQUEUE: fail
+ENQUEUE: fall foil
+DEQUEUE: pail
+ENQUEUE: pall
+DEQUEUE: nail
+ENQUEUE:
+DEQUEUE: soil
+ENQUEUE: boil coil soul
+DEQUEUE: slid
+ENQUEUE: sled slim slip slit
+DEQUEUE: mail
+ENQUEUE: mall maul
+DEQUEUE: jail
+ENQUEUE:
+DEQUEUE: pawn
+ENQUEUE: paws
+DEQUEUE: hail
+ENQUEUE: hall haul
+DEQUEUE: bail
+ENQUEUE: ball bawl
+DEQUEUE: haul
+ENQUEUE:
+DEQUEUE: bawl
+ENQUEUE: bowl
+DEQUEUE: ball
+ENQUEUE: bald bale balk balm bell bill boll bull call gall
+DEQUEUE: grit
+ENQUEUE: writ
+DEQUEUE: lard
+ENQUEUE: bard card hard lark lord ward yard
+DEQUEUE: hair
+ENQUEUE: heir
+DEQUEUE: skis
+ENQUEUE:
+DEQUEUE: skip
+ENQUEUE: ship snip
+DEQUEUE: skit
+ENQUEUE: shit spit suit
+DEQUEUE: snip
+ENQUEUE: snap
+DEQUEUE: skin
+ENQUEUE: akin shin spin
+DEQUEUE: skim
+ENQUEUE: swim
+DEQUEUE: hall
+ENQUEUE: hale half halt hell hill hull
+DEQUEUE: wait
+ENQUEUE: waft want wart whit
+DEQUEUE: dawn
+ENQUEUE: damn darn down
+DEQUEUE: yawn
+ENQUEUE: yarn
+DEQUEUE: slip
+ENQUEUE: blip clip flip slap slop
+DEQUEUE: slim
+ENQUEUE: slam slum
+DEQUEUE: laws
+ENQUEUE: jaws labs lads lags laps lass lays lows saws
+DEQUEUE: sled
+ENQUEUE: bled fled seed shed slew sped sued
+DEQUEUE: saws
+ENQUEUE: sags saps says sews
+DEQUEUE: veil
+ENQUEUE: veal
+DEQUEUE: soot
+ENQUEUE: boot foot hoot moot root shot slot soft sort spot
+DEQUEUE: grim
+ENQUEUE: brim gram prim trim
+DEQUEUE: slew
+ENQUEUE: blew flew skew slow stew
+DEQUEUE: send
+ENQUEUE: bend fend lend mend pend rend sent tend
+DEQUEUE: grid
+ENQUEUE: arid grad
+DEQUEUE: slow
+ENQUEUE: blow flow glow plow scow show slob snow
