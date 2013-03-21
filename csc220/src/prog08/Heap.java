@@ -127,14 +127,14 @@ public class Heap<E> extends AbstractQueue<E> {
 		 * Remove the last item from the ArrayList and place it into the first
 		 * position.
 		 */
-		E temp = theData.remove(theData.size() -1);
-		theData.set(0, temp);
+		E temp = theData.get(0);
+		theData.set(0, theData.remove(theData.size()-1));
 		int parent = 0;
 		int leftChild = (2 * parent + 1);
 		int rightChild = (2 * parent + 2);
-		while ((leftChild < theData.size() - 1  && compare(parent, leftChild) > 0)
-				|| (rightChild < theData.size() -1  && compare(parent,	rightChild) > 0)) {
-			if (theData.get(rightChild) != null /*rightChild < theData.size()-1*/ && compare(rightChild, leftChild) < 0){
+		while ((leftChild < theData.size()   && compare(parent, leftChild) > 0)
+				|| (rightChild < theData.size()  && compare(parent,	rightChild) > 0)) {
+			if (rightChild < theData.size() && compare(rightChild, leftChild) <= 0){
 				swap(parent, rightChild);
 				parent = rightChild;
 				leftChild = (2 * parent + 1);
