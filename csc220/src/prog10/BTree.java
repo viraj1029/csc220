@@ -142,11 +142,11 @@ while (i>= 0 && key.compareTo(list.get(i).getKey()) < 0)
 
     // Look at this!!
     if (list.size() == 4) {
-      ArrayList<Entry<K, V>> left = list;
-      ArrayList<Entry<K, V>> right = split(list);
-      list = new ArrayList<Entry<K, V>>(4);
-      list.add(new Entry<K, V>(left));
-      list.add(new Entry<K, V>(right));
+        ArrayList<Entry<K, V>> left = list;
+        ArrayList<Entry<K, V>> right = split(list);
+        list = new ArrayList<Entry<K, V>>(4);
+        list.add(new Entry<K, V>(left));
+        list.add(new Entry<K, V>(right));
     }
 
     return null;
@@ -188,7 +188,7 @@ while (i>= 0 && key.compareTo(list.get(i).getKey()) < 0)
     ArrayList<Entry<K, V>> sublist = entry.getList();
 
     insert(key, value, sublist);
-    entry.key = sublist.get(0).key;
+   // entry.key = sublist.get(0).key;
 
     if (sublist.size() < 4)
       return;
@@ -213,8 +213,9 @@ list.add(i+1, rightEntry);
 
     // EXERCISE
     // If the list has only one element and that element is not a
-    if (list.size() == 1 && entry.key instanceof ArrayList)
-    	list = entry.getList();
+    if (list.size() == 1 && !list.get(0).bottom())
+    	list = list.get(0).getList();
+   // entry = list.get(0);
     // leaf, then throw away the list and that entry and set list
     // equal to that entry's list.
 
@@ -229,40 +230,63 @@ list.add(i+1, rightEntry);
   private void remove (K key, ArrayList<Entry<K, V>> list) {
     // EXERCISE
     // Use findIndex to find the index to remove from.
+int index = findIndex(key, list);
 
 
     // If the key comes before everyone, it is not there.  (Poor Aaron.)
+if (index < 0)
+	return;
+
+// If the Entry at that index is a leaf, then it must be the one
+// we want to remove.  Remove it using the remove method of
+// ArrayList.  Then you are done.
 
 
-   
-    // If the Entry at that index is a leaf, then it must be the one
-    // we want to remove.  Remove it using the remove method of
-    // ArrayList.  Then you are done.
-
+if (list.get(index).bottom())
+{
+	list.remove(index);
+	return;
+}
+	
 
     // Otherwise, get the Entry at that index, which is an internal entry.
-
+Entry<K, V> entry = list.get(index);
 
     // And get its list, call it the sublist.
-
-
+ArrayList<Entry<K,V>> sublist = entry.getList();
     // Recursively remove the entry with the key from that sublist.
-
+remove(key, sublist);
+entry.key = sublist.get(0).key;
 
     // Make sure to update the key field of the entry because the
     // sublist may have a new key at index 0 now.
 
 
     // If the size of the sublist is still 2 or 3, then we are done.
+if (sublist.size() == 2 || sublist.size() == 3)
+{
+	return;
+	}
 
+// Othewise, we need to merge the sublist with its left or right
+// neighbor in list.  To keep things simple, merge it with the one
+// on the right, with index+1, but if the index is the last index,
+// that's not going to work.  So in that case, decrement the index
+// and make the entry and sublist be the ones which belong to that
+// one.
 
+	if (index == sublist.size())
+	{
+		index--;
+		sublist = list.get(index).getList();
 
-    // Otherwise, we need to merge the sublist with its left or right
-    // neighbor in list.  To keep things simple, merge it with the one
-    // on the right, with index+1, but if the index is the last index,
-    // that's not going to work.  So in that case, decrement the index
-    // and make the entry and sublist be the ones which belong to that
-    // one.
+	}
+	ArrayList<Entry<K,V>> rightList = list.get(index+1).getList();
+
+		sublist.addAll(rightList);
+  
+		System.out.println("removing " + list.get(index+1));
+		list.remove(index+1);
 
 
 
@@ -275,9 +299,17 @@ list.add(i+1, rightEntry);
 
     // Remove the entry to the right from list.
 
-
     // If the size of the sublist is less than 4, then we are done.
-
+if (sublist.size() < 4)
+	return;
+else
+{
+        ArrayList<Entry<K, V>> left = sublist;
+        ArrayList<Entry<K, V>> right = split(sublist);
+        list = new ArrayList<Entry<K, V>>(4);
+        list.add(new Entry<K, V>(left));
+        list.add(new Entry<K, V>(right));
+}
 
 
     // Otherwise, split the sublist.  Look at insert to see how this
@@ -327,11 +359,15 @@ list.add(i+1, rightEntry);
     System.out.println(tree);
     tree.put("Zoran", 76);
     System.out.println(tree);
-
+System.out.println("REMOVING ZOE");
     tree.remove("Zoe");
+System.out.println(tree);
+System.out.println("REMOVING KYLE");
+
+tree.remove("Kyle");
     System.out.println(tree);
-    tree.remove("Kyle");
-    System.out.println(tree);
+    System.out.println("REMOVING BRAD");
+
     tree.remove("Brad");
     System.out.println(tree);
     tree.remove("Zoran");
