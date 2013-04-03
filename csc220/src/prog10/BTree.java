@@ -112,7 +112,11 @@ while (i>= 0 && key.compareTo(list.get(i).getKey()) < 0)
 
   public V get (Object obj) {
     K key = (K) obj;
-    return find(key, list).getValue();
+   Entry< K, V > entry = find(key, list);
+   if (entry == null)
+	   return null;
+   else
+	   return entry.getValue();
   }
 
   /**
@@ -175,8 +179,13 @@ while (i>= 0 && key.compareTo(list.get(i).getKey()) < 0)
     }
     if (i < 0)
     {
-    	list.add(0, new Entry<K, V>(key, value));
+    	i++;
+    	list.set(i, new Entry<K, V>(key, (V)list.get(i).getList()));
+    	//list.add(0, new Entry<K,V>(key, value));
+    	//list.remove(i+1);
+
     }
+    
 
     // EXERCISE
     // If key comes before all the keys in the list, what will i equal?
@@ -212,9 +221,10 @@ list.add(i+1, rightEntry);
     remove(key, list);
 
     // EXERCISE
+    Entry<K,V> entry2 = list.get(0);
     // If the list has only one element and that element is not a
-    if (list.size() == 1 && !list.get(0).bottom())
-    	list = list.get(0).getList();
+    if (list.size() == 1 && !entry2.bottom())
+    	list = entry2.getList();
    // entry = list.get(0);
     // leaf, then throw away the list and that entry and set list
     // equal to that entry's list.
@@ -275,7 +285,7 @@ if (sublist.size() == 2 || sublist.size() == 3)
 // and make the entry and sublist be the ones which belong to that
 // one.
 
-	if (index == sublist.size())
+	if (index == list.size()-1)
 	{
 		index--;
 		sublist = list.get(index).getList();
@@ -342,7 +352,7 @@ else
 
   public static void main (String[] args) {
     BTree<String, Integer> tree = new BTree<String, Integer>();
-    
+    tree.get("Aaron");
     tree.put("Brad", 46);
     System.out.println(tree);
     tree.put("Hal", 10);
@@ -357,10 +367,11 @@ else
     System.out.println(tree);
     tree.put("Zoe", 6);
     System.out.println(tree);
+    tree.put("Aaron", 12);
     tree.put("Zoran", 76);
     System.out.println(tree);
 System.out.println("REMOVING ZOE");
-    tree.remove("Zoe");
+   // tree.remove("Zoe");
 System.out.println(tree);
 System.out.println("REMOVING KYLE");
 
