@@ -180,7 +180,7 @@ while (i>= 0 && key.compareTo(list.get(i).getKey()) < 0)
     if (i < 0)
     {
     	i++;
-    	list.set(i, new Entry<K, V>(key, (V)list.get(i).getList()));
+    	//list.set(i, new Entry<K, V>(key, (V)list.get(i).getList()));
     	//list.add(0, new Entry<K,V>(key, value));
     	//list.remove(i+1);
 
@@ -197,7 +197,7 @@ while (i>= 0 && key.compareTo(list.get(i).getKey()) < 0)
     ArrayList<Entry<K, V>> sublist = entry.getList();
 
     insert(key, value, sublist);
-   // entry.key = sublist.get(0).key;
+    entry.key = sublist.get(0).key;
 
     if (sublist.size() < 4)
       return;
@@ -288,7 +288,8 @@ if (sublist.size() == 2 || sublist.size() == 3)
 	if (index == list.size()-1)
 	{
 		index--;
-		sublist = list.get(index).getList();
+		entry = list.get(index);
+		sublist = entry.getList();
 
 	}
 	ArrayList<Entry<K,V>> rightList = list.get(index+1).getList();
@@ -314,11 +315,11 @@ if (sublist.size() < 4)
 	return;
 else
 {
-        ArrayList<Entry<K, V>> left = sublist;
+        //ArrayList<Entry<K, V>> left = sublist;
         ArrayList<Entry<K, V>> right = split(sublist);
-        list = new ArrayList<Entry<K, V>>(4);
-        list.add(new Entry<K, V>(left));
-        list.add(new Entry<K, V>(right));
+        //list = new ArrayList<Entry<K, V>>(4);
+        //list.add(new Entry<K, V>(left));
+        list.add(index+1, new Entry<K, V>(right));
 }
 
 
@@ -367,11 +368,11 @@ else
     System.out.println(tree);
     tree.put("Zoe", 6);
     System.out.println(tree);
-    tree.put("Aaron", 12);
+    //tree.put("Aaron", 12);
     tree.put("Zoran", 76);
     System.out.println(tree);
 System.out.println("REMOVING ZOE");
-   // tree.remove("Zoe");
+    tree.remove("Zoe");
 System.out.println(tree);
 System.out.println("REMOVING KYLE");
 
