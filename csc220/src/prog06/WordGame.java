@@ -106,9 +106,10 @@ public class WordGame {
 		 * { startNode = new Node(helpNode.word, null);
 		 * nodeQueue.offer(startNode); } }
 		 */
+		int k = 0;
 		while (!nodeQueue.isEmpty()) {
 			Node currentNode = nodeQueue.poll();
-			System.out.println("Dequeue: " + currentNode.word);
+			System.out.println(k + " Dequeue: " + currentNode.word);
 			System.out.print("Enqueue: ");
 			for (Node theNode : nodes) {
 				if (!theNode.word.equals(startNode.word)
@@ -142,7 +143,7 @@ public class WordGame {
 				}
 			}
 		      System.out.println();
-
+k++;
 		}
 
 	}
