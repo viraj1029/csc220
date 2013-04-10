@@ -194,31 +194,34 @@ class QuickSort<E extends Comparable<E>> implements Sorter<E> {
 	}
 
 	private void sort(int left, int right) {
-		if (left >= right)
-			return;
+		//if (left >= right)
+			//return;
 
 		swap(left, (left + right) / 2);
 
-		E pivot = array[left];
-		int a = left + 1;
+		E pivot = array[left + (right-left)/2];
+		int a = left;// + 1;
 		int b = right;
 		while (a <= b) {
-			if (array[a].compareTo(pivot) <= 0) {
+			while (array[a].compareTo(pivot) < 0) {
 				a++;
-			} else if (array[b].compareTo(pivot) > 0) {
+			} while (array[b].compareTo(pivot) > 0) {
 				b--;
 			}
 			// Move a forward if array[a] <= pivot
 			// Move b backward if array[b] > pivot
 			// Otherwise swap array[a] and array[b]
-			else {
+			if (a<=b) {
 				swap(a, b);
+				a++;
+			b--;
 			}
 		}
 
-		swap(left, b);
-
+		//swap(left, b);
+if (left < b)
 		sort(left, b - 1);
+if (a < right)
 		sort(b + 1, right);
 	}
 }
