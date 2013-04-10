@@ -108,9 +108,8 @@ public class OpenHashTable<K, V> extends AbstractMap<K, V> {
 		if (node == null || null == DELETED)
 			return null;
 		table[index] = DELETED;
-		nonNull++;
-		size--;
-		return node.value;
+		//nonNull++;
+		size--;		return node.value;
 	}
 
 	private void rehash(int newCapacity) {
@@ -136,26 +135,24 @@ public class OpenHashTable<K, V> extends AbstractMap<K, V> {
 		// EXERCISE
 		int i = 0;
 		Node<K, V> item;
-		int k = 0;
 		public boolean hasNext() {
 
 			/*
 			 * while (i < table.length) { if (table[i] != null || table[i] !=
 			 * DELETED) return true; } i++; return false;
 			 */
+//Start from where we last found an item
 int j = i;
-			// while (k < table.length) {
+			//Iterate from the last item through the table until we find another item
 			while (j < table.length) {
-				if (k < nonNull*2) {
-					if (table[j] != null && table[k] != DELETED) {
-						k++;
+				//if the entry is not null AND it's not deleted, it must be a real entry.
+					if (table[j] != null && table[j] != DELETED) {
+
 						return true;
 					}
-				}
-				// k++;
+
 				j++;
 			}
-			// return false;
 			return false;
 		}
 
@@ -165,13 +162,12 @@ int j = i;
 				throw new NoSuchElementException();
 
 			while (i < table.length) {
-				if (table[i] != null) {
-					if (table[i] != DELETED) {
+				if (table[i] != null && table[i] != DELETED) {
 						item = table[i];
 						i++;
 						return item;
 					}
-				}
+			//}
 
 				i++;
 			}
@@ -219,19 +215,19 @@ int j = i;
 		OpenHashTable<String, Integer> table = new OpenHashTable<String, Integer>();
 
 		table.put("Brad", 46);
-		// System.out.println(table);
+		 System.out.println(table);
 		table.put("Hal", 10);
-		// System.out.println(table);
+		System.out.println(table);
 		table.put("Kyle", 6);
-		// System.out.println(table);
+		 System.out.println(table);
 		table.put("Lisa", 43);
-		// System.out.println(table);
+		System.out.println(table);
 		table.put("Lynne", 43);
-		// System.out.println(table);
+		System.out.println(table);
 		table.put("Victor", 46);
-		// System.out.println(table);
+		System.out.println(table);
 		table.put("Zoe", 6);
-		// System.out.println(table);
+		System.out.println(table);
 		table.put("Zoran", 76);
 		System.out.println(table);
 
@@ -307,5 +303,8 @@ int j = i;
 		System.out.println(table);
 		table.remove("Yak");
 		System.out.println(table);
+		for (String key : table.keySet())
+			System.out.print(key + " ");
+		System.out.println();
 	}
 }
