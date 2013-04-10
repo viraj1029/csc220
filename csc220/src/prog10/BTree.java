@@ -1,6 +1,8 @@
 package prog10;
 import java.util.*;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 public class BTree<K extends Comparable<K>, V>
   extends AbstractMap<K, V> implements Map<K, V> {
   
@@ -368,7 +370,7 @@ else
     System.out.println(tree);
     tree.put("Zoe", 6);
     System.out.println(tree);
-    //tree.put("Aaron", 12);
+    tree.put("Aaron", 12);
     tree.put("Zoran", 76);
     System.out.println(tree);
 System.out.println("REMOVING ZOE");
@@ -386,5 +388,10 @@ tree.remove("Kyle");
     System.out.println(tree);
     tree.remove("Lisa");
     System.out.println(tree);
+    tree.remove("Aaron");
+    System.out.println(tree);
+    tree.put("Ian", 23);
+    System.out.println(tree);
+    
   }
 }
