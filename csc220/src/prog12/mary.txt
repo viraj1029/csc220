@@ -1,0 +1,23 @@
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/mary.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/snow.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/jill.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/white.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/hill.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/water.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/lamb.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/jack.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/fleece.html
+dequeued http://www.cs.miami.edu/~vjm/csc220/google/little.html
+allURLs:
+[http://www.cs.miami.edu/~vjm/csc220/google/mary.html, http://www.cs.miami.edu/~vjm/csc220/google/snow.html, http://www.cs.miami.edu/~vjm/csc220/google/jill.html, http://www.cs.miami.edu/~vjm/csc220/google/white.html, http://www.cs.miami.edu/~vjm/csc220/google/hill.html, http://www.cs.miami.edu/~vjm/csc220/google/water.html, http://www.cs.miami.edu/~vjm/csc220/google/lamb.html, http://www.cs.miami.edu/~vjm/csc220/google/jack.html, http://www.cs.miami.edu/~vjm/csc220/google/fleece.html, http://www.cs.miami.edu/~vjm/csc220/google/little.html]
+url2index:
+{http://www.cs.miami.edu/~vjm/csc220/google/fleece.html=8, http://www.cs.miami.edu/~vjm/csc220/google/hill.html=4, http://www.cs.miami.edu/~vjm/csc220/google/jack.html=7, http://www.cs.miami.edu/~vjm/csc220/google/jill.html=2, http://www.cs.miami.edu/~vjm/csc220/google/lamb.html=6, http://www.cs.miami.edu/~vjm/csc220/google/little.html=9, http://www.cs.miami.edu/~vjm/csc220/google/mary.html=0, http://www.cs.miami.edu/~vjm/csc220/google/snow.html=1, http://www.cs.miami.edu/~vjm/csc220/google/water.html=5, http://www.cs.miami.edu/~vjm/csc220/google/white.html=3}
+refCounts:
+[7, 8, 7, 7, 10, 7, 6, 7, 5, 7]
+allWords:
+[a, href, http, www, cs, miami, edu, vjm, csc, google, snow, html, hill, jill, fleece, white, jack, water, lamb, mary, little]
+word2index:
+{water=17, fleece=14, hill=12, jack=16, google=9, a=0, miami=5, white=15, www=3, little=20, lamb=18, cs=4, jill=13, http=2, csc=8, vjm=7, snow=10, html=11, edu=6, mary=19, href=1}
+urlIndexLists:
+[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 6, 7, 8, 9], [0, 1, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 7, 8]]
+Found [mary, jack, jill] on
