@@ -9,6 +9,7 @@ import prog02.GUI;
 import prog08.Tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Arrays;
@@ -34,7 +35,7 @@ public class Jumble {
 
 	public static void main(String[] args) {
 		UserInterface ui = new GUI();
-		OpenHashTable<String, ArrayList<String>> map = new OpenHashTable<String, ArrayList<String>>();
+		Map<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
 		Scanner in = null;
 		do {
 			try {
