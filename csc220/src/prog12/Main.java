@@ -24,10 +24,10 @@ public class Main {
           keyWords.add("Milenkovic");
         }
           
-	//String[] urls = google.search(keyWords, 10);
+	String[] urls = google.search(keyWords, 10);
 
-	//System.out.println("Found " + keyWords + " on");
-	//for (int i = 0; i < urls.length; i++)
-	  //  System.out.println(urls[i]);
+	System.out.println("Found " + keyWords + " on");
+	for (int i = 0; i < urls.length; i++)
+	    System.out.println(urls[i]);
     }
 }
