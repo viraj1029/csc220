@@ -22,10 +22,12 @@ public class MyGoogle implements Google {
 		List<String> words = new ArrayList<String>();
 		Queue<String> urlQueue = new ArrayDeque<String>();
 		if (startingURLs.size() > 0)
-			indexURL(startingURLs.get(0));
+			//for (int i = 0; i < startingURLs.size(); i++)
+		{//indexURL(startingURLs.get(i));
 		for (int i = 0; i < startingURLs.size(); i++) {
 			urlQueue.offer(startingURLs.get(i));
-		}
+			indexURL(startingURLs.get(i));
+		}}
 		// for (String startURL : startingURLs)
 		// urlQueue.offer(startURL);
 		int count = 0;
@@ -128,14 +130,14 @@ public class MyGoogle implements Google {
 		// current page index in each list, just "behind" the iterator
 		Stack<String> temp = new Stack<String>();
 		Comparator comparator = new URLComparator();
-		PriorityQueue<Integer> bestPageIndices = new PriorityQueue<Integer>(10,
+		PriorityQueue<Integer> bestPageIndices = new PriorityQueue<Integer>(numResults,
 				comparator);
 		while (updateSmallest(currentPageIndices, pageIndexIterators)) {
 			if (allEqual(currentPageIndices))
 				bestPageIndices.offer(currentPageIndices[0]);
 		}
 		while (!bestPageIndices.isEmpty())
-			temp.push(allURLs.get(/* url2Index.get( */bestPageIndices.poll()/* ) */));
+			temp.push(allURLs.get(bestPageIndices.poll()));
 		String[] ret = new String[temp.size()];
 		int i = 0;
 		while (!temp.isEmpty()) {
@@ -163,8 +165,7 @@ public class MyGoogle implements Google {
 		int smallestIndex = -1;
 			
 		for (int i = 0; i < currentPageIndices.length - 1; i++) {
-			if (!pageIndexIterators[i].hasNext())
-				return false;
+			
 			if (currentPageIndices[i] < currentPageIndices[i + 1])
 			{
 				smallest = currentPageIndices[i];
@@ -175,7 +176,9 @@ public class MyGoogle implements Google {
 			}
 		}
 		for (int k = 0; k < currentPageIndices.length; k++) {
-			if (currentPageIndices[k] <= smallest || smallestIndex == -1)
+			if (!pageIndexIterators[k].hasNext())
+				return false;
+			else if (currentPageIndices[k] <= smallest || smallestIndex == -1)
 				currentPageIndices[k] = pageIndexIterators[k].next();
 		}
 		return true;
@@ -193,9 +196,9 @@ public class MyGoogle implements Google {
 		int result = 0;
 		for (int i = 0; i < array.length - 1; i++) {
 			if (array[i] != array[i + 1])
-				result++;
+				return false;
 		}
-		return result == 0;
+		return true;
 	}
 
 	public class URLComparator implements Comparator<Integer> {
@@ -204,12 +207,7 @@ public class MyGoogle implements Google {
 		public int compare(Integer o1, Integer o2) {
 			int ref1 = refCounts.get(o1);
 			int ref2 = refCounts.get(o2);
-			if (ref1 > ref2)
-				return 1;
-			if (ref1 < ref2)
-				return -1;
-			else
-				return 0;
+			return ref1-ref2;
 		}
 
 	}
