@@ -12,6 +12,9 @@ public class MyGoogle implements Google {
 	 * All of the URLs we have found
 	 */
 	private List<String> allURLs = new ArrayList<String>();
+	/**
+	 * A TreeMap which will return a URL's index in the allURLs list
+	 */
 	private Map<String, Integer> url2Index = new TreeMap<String, Integer>();
 
 	@Override
@@ -21,15 +24,13 @@ public class MyGoogle implements Google {
 		List<String> urls = new ArrayList<String>();
 		List<String> words = new ArrayList<String>();
 		Queue<String> urlQueue = new ArrayDeque<String>();
-		if (startingURLs.size() > 0)
-			//for (int i = 0; i < startingURLs.size(); i++)
-		{//indexURL(startingURLs.get(i));
-		for (int i = 0; i < startingURLs.size(); i++) {
-			urlQueue.offer(startingURLs.get(i));
-			indexURL(startingURLs.get(i));
-		}}
-		// for (String startURL : startingURLs)
-		// urlQueue.offer(startURL);
+		if (startingURLs.size() > 0) {
+			for (int i = 0; i < startingURLs.size(); i++) {
+				urlQueue.offer(startingURLs.get(i));
+				indexURL(startingURLs.get(i));
+			}
+		}
+
 		int count = 0;
 		while (!urlQueue.isEmpty() && count++ < 100) {
 			refSet.clear();
@@ -61,9 +62,6 @@ public class MyGoogle implements Google {
 				}
 				int index = word2Index.get(item);
 				List<Integer> theList = urlIndexLists.get(index);
-				/*
-				 * if (theList.size() < 1) theList.add(url2Index.get(url));
-				 */
 				if (theList.isEmpty()
 						|| theList.get(theList.size() - 1) != url2Index
 								.get(url))
@@ -81,8 +79,8 @@ public class MyGoogle implements Google {
 
 	/**
 	 * Indexes a URL Adds it to our allURLs list. Puts it in url2Index with the
-	 * URL as its key and its index in allURLs as its value Adds it to refCounts
-	 * list with an initial * value of 0
+	 * URL as its key and its index in allURLs as its value. Adds it to refCounts
+	 * list with an initial value of 0
 	 * 
 	 * @param url
 	 *            the URL of the web page we're indexing
@@ -102,9 +100,18 @@ public class MyGoogle implements Google {
 	 * value
 	 */
 	Map<String, Integer> word2Index = new HashMap<String, Integer>();
-
+/**
+ * An ArrayList which contains ArrayLists of all the URL indices a given word is found on.
+ */
 	List<List<Integer>> urlIndexLists = new ArrayList<List<Integer>>();
 
+	/**
+	 * Indexes a word
+	 * Adds it to the allWords list.
+	 * maps it in the word2Index HashMap.
+	 * adds a new ArrayList for the word in urlIndexLists.
+	 * @param word the word to be indexed
+	 */
 	private void indexWord(String word) {
 		allWords.add(word);
 		word2Index.put(word, allWords.size() - 1);
@@ -112,38 +119,50 @@ public class MyGoogle implements Google {
 	}
 
 	@Override
+	/**
+	 * search all webpages containing key words
+	 * rank the candidate webpages by a priority queue according to refcounts
+	 * @param keyWords a list of keyWords to search
+	 * @param numResults the number of results to be displayed
+	 * @return A String array of URLs, sorted by priority.
+	 */
 	public String[] search(List<String> keyWords, int numResults) {
 		// TODO Auto-generated method stub
-		// 1. search all webpages containing key words
-		// 2. rank the candidate webpages by a priority queue according to
-		// refcounts
+
 
 		Iterator<Integer>[] pageIndexIterators = (Iterator<Integer>[]) new Iterator[keyWords
 				.size()];
 		int[] currentPageIndices = new int[keyWords.size()];
+		//Initialize the current page indices
+		//and their Iterators
 		for (int i = 0; i < keyWords.size(); i++) {
 			pageIndexIterators[i] = urlIndexLists.get(
 					word2Index.get(keyWords.get(i))).iterator();
 			currentPageIndices[i] = urlIndexLists.get(
 					word2Index.get(keyWords.get(i))).get(0);
 		}
-		// current page index in each list, just "behind" the iterator
 		Stack<String> temp = new Stack<String>();
-		Comparator comparator = new URLComparator();
-		PriorityQueue<Integer> bestPageIndices = new PriorityQueue<Integer>(numResults,
-				comparator);
+		Comparator<Integer> comparator = new URLComparator();
+		PriorityQueue<Integer> bestPageIndices = new PriorityQueue<Integer>(
+				numResults, comparator);
+		//While there is a smallest to be updated
 		while (updateSmallest(currentPageIndices, pageIndexIterators)) {
 			if (allEqual(currentPageIndices))
+				//If a word is found on all pages, add it to the queue
 				bestPageIndices.offer(currentPageIndices[0]);
 		}
+		//Pages are in reverse order in the Priority Queue
+		//So push them onto a stack to re-order them
 		while (!bestPageIndices.isEmpty())
-			temp.push(allURLs.get(bestPageIndices.poll()));
+		temp.push(allURLs.get(bestPageIndices.poll()));
 		String[] ret = new String[temp.size()];
 		int i = 0;
+		//Pop the strings into a String array
 		while (!temp.isEmpty()) {
 			ret[i] = temp.pop();
 			i++;
 		}
+		//return the filled String array
 		return ret;
 	}
 
@@ -163,16 +182,15 @@ public class MyGoogle implements Google {
 			Iterator<Integer>[] pageIndexIterators) {
 		int smallest = Integer.MAX_VALUE;
 		int smallestIndex = -1;
-			
+
 		for (int i = 0; i < currentPageIndices.length - 1; i++) {
-			
-			if (currentPageIndices[i] < currentPageIndices[i + 1])
-			{
+
+			if (currentPageIndices[i] < currentPageIndices[i + 1]) {
 				smallest = currentPageIndices[i];
 				smallestIndex = i;
-			}else if (currentPageIndices[i] > currentPageIndices[i+1]){
+			} else if (currentPageIndices[i] > currentPageIndices[i + 1]) {
 				smallest = currentPageIndices[i + 1];
-				smallestIndex = i+1;
+				smallestIndex = i + 1;
 			}
 		}
 		for (int k = 0; k < currentPageIndices.length; k++) {
@@ -204,10 +222,15 @@ public class MyGoogle implements Google {
 	public class URLComparator implements Comparator<Integer> {
 
 		@Override
+		/**
+		 * Compares the reference counts of two URLs
+		 * @param o1 the index of the first URL
+		 * @param o2 the index of the second URL
+		 */
 		public int compare(Integer o1, Integer o2) {
 			int ref1 = refCounts.get(o1);
 			int ref2 = refCounts.get(o2);
-			return ref1-ref2;
+			return ref1 - ref2;
 		}
 
 	}
